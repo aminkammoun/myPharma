@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link href="../css/vuetify.min.css" rel="stylesheet" />
+    <link href="./css/style.css" rel="stylesheet" />
+    <style>
+      #map {
+        height: 800px;
+        width: 100%;
+      }
+    </style>
+    <script src="../config/js/vuefire.js"></script>
+    <script src="../config/js/firebase.js"></script>
+    <script src="../config/js/axios.min.js"></script>
+    <script src="../config/js/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="sidenav">
+        <a href="#" target="affiche">Add pharmacie</a>
+        <a href="addStock.html">mise à jour stock</a>
+      </div>
+      <v-content>
+        <v-container data-app>
+          <h1 class="title py-4">
+            Ajouter un nouveau medicament
+          </h1>
+          <v-divider></v-divider>
+          <v-form>
+            <v-row>
+              <v-col class="d-flex" cols="12" sm="12">
+                <v-select
+                  id="select"
+                  v-model="select"
+                  :items="items"
+                  label="Select pharmacy name"
+                  outlined
+                ></v-select>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  hide-details
+                  id="stock"
+                  label="stock"
+                  outlined
+                  v-model="stock"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  hide-details
+                  id="NomMed"
+                  label="nom de medicament "
+                  outlined
+                  v-model="NomMed"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" sm="6">
+                <v-file-input
+                  hide-details
+                  label="File input"
+                  filled
+                  prepend-icon="mdi-camera"
+                ></v-file-input> </v-col
+            ></v-row>
+            <v-row
+              ><v-col cols="12" md="12">
+                <v-textarea
+                  id="Des"
+                  hide-details
+                  outlined
+                  name="input-7-4"
+                  label="describ your need here"
+                  v-model="description"
+                ></v-textarea>
+              </v-col>
+            </v-row>
+            <v-btn color="#038AFF" class="declareButton" @click="stockForm">
+              <span color="white">
+                Ajouter
+              </span>
+            </v-btn>
+            <v-snackbar v-model="snackbar">
+              {{ text }}
+              <v-btn color="pink" text @click="snackbar = false">
+                Close
+              </v-btn>
+            </v-snackbar>
+          </v-form>
+        </v-container>
+      </v-content>
+    </div>
+  </body>
+  <script src="./js/admin.js"></script>
+</html>

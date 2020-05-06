@@ -1,0 +1,139 @@
+<html>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link href="./css/vuetify.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/test.css" />
+    <style>
+      #map {
+        height: 800px;
+        width: 100%;
+      }
+    </style>
+    <script src="./config/js/vuefire.js"></script>
+    <script src="./config/js/firebase.js"></script>
+    <script src="./config/js/axios.min.js"></script>
+    <script src="./config/js/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  </head>
+  <body>
+    <div id="app" class="draw">
+      <div class="cont" v-if="load">
+        <div class="load-wrapp">
+          <div class="load-3">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+          </div>
+        </div>
+      </div>
+
+      <v-app dark>
+        <v-app-bar flat app color="#2bb673">
+          <div id="menu-bar">
+            <div id="menu" onclick="onClickMenu()">
+              <div id="bar1" class="bar"></div>
+              <div id="bar2" class="bar"></div>
+              <div id="bar3" class="bar"></div>
+            </div>
+            <ul class="nav" id="nav">
+              <li><a href="index.html">map</a></li>
+              <li><a href="phDeJour.html">Pharmacie jour</a></li>
+              <li><a href="phDeNuit.html">Pharmacie nuit</a></li>
+              <li><a href="phDeGarde.html">Pharmacie Garde</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="./forum/views/viewAllDeclaration.html">Forum</a></li>
+            </ul>
+          </div>
+          <div class="menu-bg" id="menu-bg"></div>
+
+          <v-spacer></v-spacer>
+
+          <img src="./img/pharma.png" class="image-title" />
+
+          <v-spacer></v-spacer>
+        </v-app-bar>
+        <v-content>
+          <v-icon class="back-btn" @click="goBack">mdi-arrow-left</v-icon>
+          <h3>Liste des pharmacies de nuit</h3>
+          <div class="fade-in" v-for="(time, index) in times">
+            <v-container grid-list-xs v-if="time.cat == 'nuit'">
+              <v-card flat>
+                <v-list-item-content py-2>
+                  <v-row>
+                    <v-col cols="12" md="3">
+                      <v-img height="120px" :src="time.imageURL"> </v-img>
+                    </v-col>
+                    <v-col cols="12" md="9">
+                      <v-card-actions>
+                        <h3>pharmacie de: {{time.name}}</h3>
+                      </v-card-actions>
+                      <v-card-actions>
+                        <v-icon>mdi-home</v-icon>Address : {{time.adress}}
+                      </v-card-actions>
+                      <v-card-actions>
+                        <v-icon>mdi-clock</v-icon>Temps de travail :
+                        {{time.ouvre}} h - {{time.ferme}} h
+                      </v-card-actions>
+                      <v-card-actions>
+                        <v-icon>mdi-phone</v-icon>
+                        n° telephone : {{time.tel}}
+                      </v-card-actions>
+                      <v-card-actions>
+                        <v-btn
+                          class="button"
+                          rounded
+                          @click="getStock(id[index])"
+                        >
+                          <a href="afficheStock.html">show stock</a>
+                        </v-btn>
+                      </v-card-actions>
+                    </v-col>
+                  </v-row>
+                </v-list-item-content>
+              </v-card>
+            </v-container>
+          </div>
+          <v-btn
+            v-scroll="onScroll"
+            v-show="fab"
+            transition="scale-transition"
+            title="top"
+            bottom
+            color="#38ca89"
+            dark
+            fab
+            fixed
+            right
+            @click="top"
+          >
+            <v-icon>mdi-arrow-up</v-icon>
+          </v-btn>
+        </v-content>
+        <v-footer padless>
+          <v-col class="text-center" cols="12">
+            All rights reserved © {{ new Date().getFullYear() }} —
+            <strong>KmAmin</strong>
+          </v-col>
+        </v-footer>
+      </v-app>
+    </div>
+  </body>
+  <script src="./js/phDeNuit.js"></script>
+  <script type="text/javascript">
+    function onClickMenu() {
+      document.getElementById("menu").classList.toggle("change");
+      document.getElementById("nav").classList.toggle("change");
+
+      document.getElementById("menu-bg").classList.toggle("change-bg");
+    }
+  </script>
+</html>

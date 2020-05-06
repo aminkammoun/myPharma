@@ -1,0 +1,148 @@
+<html>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link href="../../css/vuetify.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/index.css" />
+    <link rel="stylesheet" href="../../css/test.css" />
+    <style>
+      #map {
+        height: 800px;
+        width: 100%;
+      }
+    </style>
+    <script src="../../config/js/vuefire.js"></script>
+    <script src="../../config/js/firebase.js"></script>
+    <script src="../../config/js/axios.min.js"></script>
+    <script src="../../config/js/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  </head>
+  <body>
+    <div id="app" class="draw">
+      <div class="cont" v-if="load">
+        <div class="load-wrapp">
+          <div class="load-3">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+          </div>
+        </div>
+      </div>
+      <v-app>
+        <v-app-bar flat app color="#2bb673">
+          <div id="menu-bar">
+            <div id="menu" onclick="onClickMenu()">
+              <div id="bar1" class="bar"></div>
+              <div id="bar2" class="bar"></div>
+              <div id="bar3" class="bar"></div>
+            </div>
+            <ul class="nav" id="nav">
+              <li><a href="../../index.html">map</a></li>
+              <li><a href="../../phDeJour.html">Pharmacie jour</a></li>
+              <li><a href="../../phDeNuit.html">Pharmacie nuit</a></li>
+              <li><a href="../../phDeGarde.html">Pharmacie Garde</a></li>
+              <li><a href="../../contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="menu-bg" id="menu-bg"></div>
+
+          <v-spacer></v-spacer>
+
+          <img src="../../img/pharma.png" class="image-title" />
+
+          <v-spacer></v-spacer>
+        </v-app-bar>
+        <v-content>
+          <v-icon class="back-btn" @click="goBack">mdi-arrow-left</v-icon>
+
+          <v-container>
+            <v-layout row>
+              <v-flex xs12 sm6 offset-sm3>
+                <h4>Besoin de medicament?</h4>
+              </v-flex>
+            </v-layout>
+
+            <v-form @submit.prevent="onCreateMeetup">
+              <v-row>
+                <v-col cols="12" md="12">
+                  <v-text-field
+                    name="title"
+                    label="Title"
+                    id="title"
+                    v-model="title"
+                    required
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12" md="12">
+                  <v-text-field
+                    name="location"
+                    label="Location"
+                    id="location"
+                    v-model="location"
+                    required
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col>
+                  <v-text-field
+                    name="imageUrl"
+                    label="Image URL"
+                    id="image-url"
+                    v-model="imageUrl"
+                    required
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12" md="12">
+                  <img :src="imageUrl" height="150" />
+                </v-col>
+              </v-row>
+
+              <v-row
+                ><v-col cols="12" md="12">
+                  <v-textarea
+                    id="Des"
+                    hide-details
+                    name="description"
+                    label="describ your declaration"
+                    v-model="description"
+                  ></v-textarea>
+                </v-col>
+              </v-row>
+              <v-btn class="primary" :disabled="!formIsValid" type="submit"
+                >Create Meetup</v-btn
+              >
+            </v-form>
+          </v-container>
+        </v-content>
+      </v-app>
+
+      <v-footer padless>
+        <v-col class="text-center" cols="12">
+          All rights reserved © {{ new Date().getFullYear() }} —
+          <strong>KmAmin</strong>
+        </v-col>
+      </v-footer>
+    </div>
+  </body>
+
+  <script src="../../js/declaration.js"></script>
+  <script type="text/javascript">
+    function onClickMenu() {
+      document.getElementById("menu").classList.toggle("change");
+      document.getElementById("nav").classList.toggle("change");
+
+      document.getElementById("menu-bg").classList.toggle("change-bg");
+    }
+  </script>
+</html>
