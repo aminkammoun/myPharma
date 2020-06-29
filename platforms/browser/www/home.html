@@ -1,0 +1,119 @@
+<html>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link href="./css/vuetify.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/test.css" />
+    <style>
+      #map {
+        height: 800px;
+        width: 100%;
+      }
+    </style>
+    <script src="./config/js/vuefire.js"></script>
+    <script src="./config/js/firebase.js"></script>
+    <script src="./config/js/axios.min.js"></script>
+    <script src="./config/js/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  </head>
+  <body>
+    <div id="app" class="draw">
+      <div class="cont" v-if="load">
+        <div class="load-wrapp">
+          <div class="load-3">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+          </div>
+        </div>
+      </div>
+      <v-app dark>
+        <v-app-bar flat app color="#caebe5" elevate-on-scroll>
+          <div id="menu-bar">
+            <div id="menu" onclick="onClickMenu()">
+              <div id="bar1" class="bar"></div>
+              <div id="bar2" class="bar"></div>
+              <div id="bar3" class="bar"></div>
+            </div>
+            <ul class="nav" id="nav">
+              <li><a href="index.html">map</a></li>
+              <li><a href="phDeJour.html">Ph.jour</a></li>
+              <li><a href="phDeNuit.html">Ph.nuit</a></li>
+              <li><a href="phDeGarde.html">Ph.Garde</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="menu-bg" id="menu-bg"></div>
+        </v-app-bar>
+        <v-content>
+          <div class="test">
+            <img class="image-intro" src="./img/intro.jpg"/>
+
+            <v-text-field
+              class="in"
+              label="Solo"
+              single-line
+              rounded
+              solo
+              append-icon="mdi-arrow-right-bold-circle"
+            ></v-text-field>
+          </div>
+          <v-content>
+            <v-container mt-5>
+              <v-row>
+                <v-col cols="12" md="6" sm="6" xs="6">
+                  <div>
+                    <img
+                      src="./img/istockphoto-1208199298-170x170.jpg"
+                      alt=""
+                    />
+                    <p mt-5>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Dignissimos velit cupiditate iste ut facere.
+                    </p>
+                  </div>
+                </v-col>
+                <v-col cols="12" md="6" sm="6" xs="6">
+                  <div>
+                    <img
+                      src="./img/istockphoto-1208199298-170x170.jpg"
+                      alt=""
+                    />
+                    <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Dignissimos velit cupiditate iste ut facere.
+                    </p>                  
+                  </div>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-content>
+        </v-content>
+      </v-app>
+      <v-footer padless>
+        <v-col class="text-center" cols="12">
+          All rights reserved © {{ new Date().getFullYear() }} —
+          <strong>KmAmin</strong>
+        </v-col>
+      </v-footer>
+    </div>
+  </body>
+
+  <script src="./js/contact.js"></script>
+  <script type="text/javascript">
+    function onClickMenu() {
+      document.getElementById("menu").classList.toggle("change");
+      document.getElementById("nav").classList.toggle("change");
+
+      document.getElementById("menu-bg").classList.toggle("change-bg");
+    }
+  </script>
+</html>

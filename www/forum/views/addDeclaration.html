@@ -48,6 +48,7 @@
               <li><a href="../../phDeNuit.html">Pharmacie nuit</a></li>
               <li><a href="../../phDeGarde.html">Pharmacie Garde</a></li>
               <li><a href="../../contact.html">Contact</a></li>
+              <v-icon v-if="auth" @click="logout">mdi-logout</v-icon>
             </ul>
           </div>
           <div class="menu-bg" id="menu-bg"></div>
@@ -68,32 +69,37 @@
               </v-flex>
             </v-layout>
 
-            <v-form @submit.prevent="onCreateMeetup">
+            <v-form>
               <v-row>
                 <v-col cols="12" md="12">
                   <v-text-field
+                    class="spaceBotom"
                     name="title"
                     label="Title"
                     id="title"
-                    v-model="title"
+                    v-model="titre"
                     required
+                    outlined
                   ></v-text-field>
                 </v-col>
               </v-row>
               <v-row>
                 <v-col cols="12" md="12">
                   <v-text-field
+                    class="spaceBotom"
                     name="location"
                     label="Location"
                     id="location"
-                    v-model="location"
+                    v-model="localisation"
                     required
+                    outlined
                   ></v-text-field>
                 </v-col>
               </v-row>
               <v-row>
                 <v-col>
                   <v-text-field
+                    class="spaceBotom"
                     name="imageUrl"
                     label="Image URL"
                     id="image-url"
@@ -114,13 +120,17 @@
                     id="Des"
                     hide-details
                     name="description"
-                    label="describ your declaration"
+                    label="description"
                     v-model="description"
+                    outlined
                   ></v-textarea>
                 </v-col>
               </v-row>
-              <v-btn class="primary" :disabled="!formIsValid" type="submit"
-                >Create Meetup</v-btn
+              <v-btn
+                class="primary"
+                :disabled="!formIsValid"
+                @click="onCreateDec"
+                >Ajouter declaration</v-btn
               >
             </v-form>
           </v-container>
@@ -141,7 +151,6 @@
     function onClickMenu() {
       document.getElementById("menu").classList.toggle("change");
       document.getElementById("nav").classList.toggle("change");
-
       document.getElementById("menu-bg").classList.toggle("change-bg");
     }
   </script>

@@ -1,0 +1,184 @@
+<html>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link href="../../css/vuetify.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/index.css" />
+    <link rel="stylesheet" href="../../css/test.css" />
+    <style>
+      #map {
+        height: 800px;
+        width: 100%;
+      }
+    </style>
+    <script src="../../config/js/vuefire.js"></script>
+    <script src="../../config/js/firebase.js"></script>
+    <script src="../../config/js/axios.min.js"></script>
+    <script src="../../config/js/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  </head>
+  <body>
+    <div id="app" class="draw">
+      <div class="cont" v-if="load">
+        <div class="load-wrapp">
+          <div class="load-3">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+          </div>
+        </div>
+      </div>
+      <v-app>
+        <v-app-bar flat app color="#2bb673">
+          <div id="menu-bar">
+            <div id="menu" onclick="onClickMenu()">
+              <div id="bar1" class="bar"></div>
+              <div id="bar2" class="bar"></div>
+              <div id="bar3" class="bar"></div>
+            </div>
+            <ul class="nav" id="nav">
+              <li><a href="../../index.html">map</a></li>
+              <li>
+                <v-badge color="black" :content="numJour">
+                  <a href="phDeNuit.html">Pharmacie jour</a>
+                </v-badge>
+              </li>
+              <li>
+                <v-badge color="black" :content="numNuit">
+                  <a href="phDeNuit.html">Pharmacie nuit</a>
+                </v-badge>
+              </li>
+              <li>
+                <v-badge color="green" :content="numGarde">
+                  <a href="phDeGarde.html">Pharmacie garde</a>
+                </v-badge>
+              </li>
+              <li><a href="../../contact.html">Contact</a></li>
+              <v-icon v-if="auth" @click="logout">mdi-logout</v-icon>
+            </ul>
+          </div>
+          <div class="menu-bg" id="menu-bg"></div>
+
+          <v-spacer></v-spacer>
+
+          <img src="../../img/pharma.png" class="image-title" />
+
+          <v-spacer></v-spacer>
+        </v-app-bar>
+        <v-content>
+          <v-icon class="back-btn" @click="goBack">mdi-arrow-left</v-icon>
+
+          <v-container>
+            <v-btn color="primary" @click="goToDec"> add declaration</v-btn>
+            <v-row>
+              <v-col
+                v-for="declaratin in allDeclations"
+                :key="declaratin.id"
+                cols="12"
+                sm="4"
+              >
+                <v-card flat style="border-radius: 0px;">
+                  <v-container fluid>
+                    <v-layout row>
+                      <v-flex xs4 sm3 md2>
+                        <img
+                          class="image-size"
+                          :src="declaratin.imageUrl"
+                          height="130px"
+                        />
+                      </v-flex>
+                      <v-flex xs8 sm9 md10 style="margin-left: 151px;">
+                        <v-card-actions class="card">
+                          <h5 class="mb-0">{{ declaratin.title }}</h5>
+                        </v-card-actions>
+                        <v-card-actions>
+                          <div class="added">
+                            added by {{ declaratin.username }}
+                            {{declaratin.userlastname}}
+                          </div>
+                        </v-card-actions>
+                      </v-flex>
+
+                      <template>
+                        <v-expansion-panels flat>
+                          <v-expansion-panel>
+                            <v-expansion-panel-header
+                              style="margin-top: 3px; margin-bottom: -15px;"
+                              >lire description</v-expansion-panel-header
+                            >
+                            <v-expansion-panel-content>
+                              {{ declaratin.description }} <br />
+                              <v-btn color="success" class="cntBtn"
+                                >contacter</v-btn
+                              >
+                            </v-expansion-panel-content>
+                          </v-expansion-panel>
+                        </v-expansion-panels>
+                      </template>
+                    </v-layout>
+                  </v-container>
+                </v-card>
+              </v-col>
+            </v-row>
+            <v-btn
+              v-scroll="onScroll"
+              v-show="fab"
+              transition="scale-transition"
+              title="top"
+              bottom
+              color="#38ca89"
+              dark
+              fab
+              fixed
+              right
+              @click="top"
+            >
+              <v-icon>mdi-arrow-up</v-icon>
+            </v-btn>
+            <v-row justify="center">
+              <v-dialog v-model="dialog" persistent max-width="290">
+                <v-card color="primary">
+                  <v-card-title>connecter vous svp</v-card-title>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="green darken-1" text
+                      ><a href="../user/Login.html">login</a></v-btn
+                    >
+
+                    <v-btn color="green darken-1" text
+                      ><a href="../user/signUp.html">signUp</a></v-btn
+                    >
+                    <v-btn text @click="dialog=!dialog">annuler</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-row>
+          </v-container>
+        </v-content>
+      </v-app>
+      <v-footer padless>
+        <v-col class="text-center" cols="12">
+          All rights reserved © {{ new Date().getFullYear() }} —
+          <strong>KmAmin</strong>
+        </v-col>
+      </v-footer>
+    </div>
+  </body>
+
+  <script src="../../js/viewAllDeclaration.js"></script>
+  <script type="text/javascript">
+    function onClickMenu() {
+      document.getElementById("menu").classList.toggle("change");
+      document.getElementById("nav").classList.toggle("change");
+
+      document.getElementById("menu-bg").classList.toggle("change-bg");
+    }
+  </script>
+</html>

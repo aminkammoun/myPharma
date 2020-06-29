@@ -40,12 +40,25 @@
               <div id="bar3" class="bar"></div>
             </div>
             <ul class="nav" id="nav">
-              <li><a href="index.html">map</a></li>
-              <li><a href="phDeJour.html">Pharmacie jour</a></li>
-              <li><a href="phDeNuit.html">Pharmacie nuit</a></li>
-              <li><a href="phDeGarde.html">Pharmacie Garde</a></li>
+              <li>
+                <v-badge :color="ic" dot>
+                  <a href="phDeJour.html">Pharmacie jour</a>
+                </v-badge>
+              </li>
+              <li>
+                <v-badge dot :color="icc">
+                  <a href="phDeNuit.html">Pharmacie nuit</a>
+                </v-badge>
+              </li>
+              <li>
+                <v-badge :color="ic2" dot>
+                  <a href="phDeGarde.html">Pharmacie garde</a>
+                </v-badge>
+              </li>
               <li><a href="contact.html">Contact</a></li>
               <li><a href="./forum/views/viewAllDeclaration.html">Forum</a></li>
+              <v-icon v-if="auth" @click="logout">mdi-logout</v-icon>
+              <li><a v-if="!auth" href="./forum/user/Login.html">login</a></li>
             </ul>
           </div>
           <div class="menu-bg" id="menu-bg"></div>
@@ -54,6 +67,9 @@
           <img src="./img/pharma.png" class="image-title" />
 
           <v-spacer></v-spacer>
+          <v-btn v-if="auth" dark icon @click="attrs = !attrs">
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
         </v-app-bar>
         <v-content>
           <div id="map"></div>

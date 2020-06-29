@@ -5,7 +5,7 @@ var config = {
   projectId: "pharmaposition-a230d",
   storageBucket: "pharmaposition-a230d.appspot.com",
   messagingSenderId: "1014214233603",
-  Id: "1:1014214233603:web:edb23cb53200911017c836"
+  Id: "1:1014214233603:web:edb23cb53200911017c836",
 };
 firebase.initializeApp(config);
 new Vue({
@@ -14,7 +14,8 @@ new Vue({
   data: {
     stocks: [],
     show: false,
-    ID: ""
+    ID: "",
+    auth: false,
   },
   created() {
     this.getId();
@@ -22,10 +23,15 @@ new Vue({
   methods: {
     getId() {
       this.stocks = JSON.parse(window.localStorage.getItem("key"));
-      console.log(this.stocks);
     },
     goBack() {
       window.history.back();
-    }
-  }
+    },
+    logout() {
+      window.localStorage.removeItem("auth");
+      window.localStorage.removeItem("name");
+      window.localStorage.removeItem("lastname");
+      window.location.href = "../views/viewAllDeclaration.html";
+    },
+  },
 });

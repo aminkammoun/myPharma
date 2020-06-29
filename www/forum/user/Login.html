@@ -1,0 +1,138 @@
+<html>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link href="../../css/vuetify.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/index.css" />
+    <link rel="stylesheet" href="../../css/test.css" />
+    <style>
+      #map {
+        height: 800px;
+        width: 100%;
+      }
+    </style>
+    <script src="../../config/js/vuefire.js"></script>
+    <script src="../../config/js/firebase.js"></script>
+    <script src="../../config/js/axios.min.js"></script>
+    <script src="../../config/js/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  </head>
+  <body>
+    <div id="app" class="draw">
+      <div class="cont" v-if="load">
+        <div class="load-wrapp">
+          <div class="load-3">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+          </div>
+        </div>
+      </div>
+      <v-app style="background-color: #00e676;">
+        <v-content>
+          <v-container>
+            <v-layout row>
+              <v-flex xs12 sm6 offset-sm3>
+                <v-card style="top: 100px;">
+                  <v-card-text>
+                    <v-container>
+                      <v-avatar
+                        color="#00e676"
+                        style="margin-top: -20px; margin-bottom: 10px;"
+                      >
+                        <v-icon dark>mdi-account-circle</v-icon>
+                      </v-avatar>
+                      <h3
+                        style="
+                          margin-bottom: 22px;
+                          font-family: initial;
+                          font-size: 14px;
+                        "
+                      >
+                        connecter vous pour bénéficer plus d'options dans
+                        notre platform
+                      </h3>
+
+                      <form @submit.prevent="Login">
+                        <v-layout row>
+                          <div class="erorAlert" v-if="loginAlert">
+                            email or mot de passe incorrect
+                          </div>
+                          <v-flex xs12>
+                            <v-text-field
+                              name="email"
+                              label="Mail"
+                              id="email"
+                              v-model="email"
+                              type="email"
+                              required
+                              outlined
+                            ></v-text-field>
+                          </v-flex>
+                        </v-layout>
+                        <v-layout row>
+                          <v-flex xs12>
+                            <v-text-field
+                              name="password"
+                              label="mot de passe"
+                              id="password"
+                              v-model="password"
+                              type="password"
+                              required
+                              outlined
+                            ></v-text-field>
+                          </v-flex>
+                        </v-layout>
+
+                        <v-layout row>
+                          <v-flex xs12>
+                            <v-btn type="submit" color="#2bb673">login</v-btn>
+                          </v-flex>
+                        </v-layout>
+
+                        <v-layout row style="margin-top: 17px;">
+                          <v-flex xs12>
+                            vous n'avez pas un compte
+                            <a
+                              style="color: #1976d2 !important;"
+                              href="./signUp.html"
+                            >
+                              inscriver vous</a
+                            >
+                          </v-flex>
+                        </v-layout>
+                      </form>
+                    </v-container>
+                  </v-card-text>
+                </v-card>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-content>
+      </v-app>
+
+      <v-footer padless>
+        <v-col class="text-center" cols="12">
+          All rights reserved © {{ new Date().getFullYear() }} —
+          <strong>KmAmin</strong>
+        </v-col>
+      </v-footer>
+    </div>
+  </body>
+
+  <script src="./js/signUp.js"></script>
+  <script type="text/javascript">
+    function onClickMenu() {
+      document.getElementById("menu").classList.toggle("change");
+      document.getElementById("nav").classList.toggle("change");
+
+      document.getElementById("menu-bg").classList.toggle("change-bg");
+    }
+  </script>
+</html>

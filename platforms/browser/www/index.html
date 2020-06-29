@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link href="./css/vuetify.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/test.css" />
+    <style>
+      #map {
+        height: 700px;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="cont" v-if="load">
+        <div class="load-wrapp">
+          <div class="load-3">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+          </div>
+        </div>
+      </div>
+
+      <v-app dark>
+        <v-app-bar flat app color="#2bb673">
+          <div id="menu-bar">
+            <div id="menu" onclick="onClickMenu()">
+              <div id="bar1" class="bar"></div>
+              <div id="bar2" class="bar"></div>
+              <div id="bar3" class="bar"></div>
+            </div>
+            <ul class="nav" id="nav">
+              <li>
+                <v-badge :color="ic" dot>
+                  <a href="phDeNuit.html">Pharmacie jour</a>
+                </v-badge>
+              </li>
+              <li>
+                <v-badge dot :color="icc">
+                  <a href="phDeNuit.html">Pharmacie nuit</a>
+                </v-badge>
+              </li>
+              <li>
+                <v-badge :color="ic2" dot>
+                  <a href="phDeGarde.html">Pharmacie garde</a>
+                </v-badge>
+              </li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="./forum/views/viewAllDeclaration.html">Forum</a></li>
+              <v-icon v-if="auth" @click="logout">mdi-logout</v-icon>
+              <li><a v-if="!auth" href="./forum/user/Login.html">login</a></li>
+            </ul>
+          </div>
+          <div class="menu-bg" id="menu-bg"></div>
+
+          <v-spacer></v-spacer>
+          <img src="./img/pharma.png" class="image-title" />
+
+          <v-spacer></v-spacer>
+        </v-app-bar>
+        <v-content>
+          <div id="map"></div>
+          <v-btn
+            title="get the closest"
+            bottom
+            color="#38ca89"
+            dark
+            fab
+            fixed
+            right
+            @click="getClosest"
+          >
+            <v-icon>mdi-target</v-icon>
+          </v-btn>
+          <v-snackbar v-model="snackbar">
+            {{ text }}
+            <v-btn color="#038AFF" text @click="snackbar = false">
+              Close
+            </v-btn>
+          </v-snackbar>
+
+          <v-divider></v-divider>
+          <v-footer padless>
+            <v-col class="text-center" cols="12">
+              All rights reserved © {{ new Date().getFullYear() }} —
+              <strong>KmAmin</strong>
+            </v-col>
+          </v-footer>
+        </v-content>
+      </v-app>
+    </div>
+
+    <script src="./config/js/vuefire.js"></script>
+    <script src="./config/js/firebase.js"></script>
+    <script src="./config/js/axios.min.js"></script>
+    <script src="./config/js/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEKqAbwXitNuWVIXaIJ60kd33svzZY4nE"
+    ></script>
+    <script src="js/multiMarker.js"></script>
+    <script type="text/javascript">
+      function onClickMenu() {
+        document.getElementById("menu").classList.toggle("change");
+        document.getElementById("nav").classList.toggle("change");
+
+        document.getElementById("menu-bg").classList.toggle("change-bg");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link href="../css/vuetify.min.css" rel="stylesheet" />
+    <link href="./css/style.css" rel="stylesheet" />
+
+    <style>
+      #map {
+        height: 800px;
+        width: 100%;
+      }
+    </style>
+    <script src="../config/js/vuefire.js"></script>
+    <script src="../config/js/firebase.js"></script>
+    <script src="../config/js/axios.min.js"></script>
+    <script src="../config/js/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <template>
+        <v-card flat>
+          <v-toolbar style="background-color: #1b5e20; border-radius: 0px;" dark flat>
+            <v-toolbar-title
+              ><h1>
+                Ajouter une nouvelle pharmacie
+              </h1></v-toolbar-title
+            >
+
+            <v-spacer></v-spacer>
+
+            <v-btn icon>
+              <v-icon>mdi-magnify</v-icon>
+            </v-btn>
+
+            <v-btn icon>
+              <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
+
+            <template v-slot:extension>
+              <v-tabs align-with-title>
+                <v-tabs-slider color="yellow"></v-tabs-slider>
+
+                <v-tab>
+                  <a href="./user.html">utilisateurs</a>
+                </v-tab>
+                <v-tab>
+                  <a href="./tousPh.html">tous les pharmacies</a>
+                </v-tab>
+                <v-tab>
+                  <a href="./addPharmacie.html">AJOUTER pharmacie</a>
+                </v-tab>
+                <v-tab>
+                  <a href="./addStock.html">AJOUTER stocke</a>
+                </v-tab>
+              </v-tabs>
+            </template>
+          </v-toolbar>
+        </v-card>
+      </template>
+      <v-content>
+        <v-container data-app>
+          <v-divider></v-divider>
+          <v-form>
+            <v-row>
+              <v-col class="d-flex" cols="12" sm="6">
+                <v-text-field
+                  hide-details
+                  id="nomPH"
+                  label="nom de pharmacie"
+                  outlined
+                  v-model="nomPH"
+                ></v-text-field>
+              </v-col>
+              <v-col class="d-flex" cols="12" sm="6">
+                <v-text-field
+                  hide-details
+                  id="categorie"
+                  label="categorie"
+                  outlined
+                  v-model="categorie"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  hide-details
+                  id="adress"
+                  label="adress"
+                  outlined
+                  v-model="adress"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  hide-details
+                  id="telephone"
+                  label="telephone"
+                  outlined
+                  v-model="telephone"
+                  :rules="telRules"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  hide-details
+                  id="longittude"
+                  label="longittude"
+                  outlined
+                  v-model="longittude"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  hide-details
+                  id="attitude"
+                  label="attitude"
+                  outlined
+                  v-model="attitide"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  hide-details
+                  id="ouvre"
+                  label="ouvre"
+                  outlined
+                  v-model="ouvre"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  hide-details
+                  id="ferme"
+                  label="ferme"
+                  outlined
+                  v-model="ferme"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+
+            <v-btn color="#038AFF" class="declareButton" @click="ajouterPH">
+              <span color="white">
+                Ajouter
+              </span>
+            </v-btn>
+            <v-snackbar v-model="snackbar">
+              {{ text }}
+              <v-btn color="pink" text @click="snackbar = false">
+                Close
+              </v-btn>
+            </v-snackbar>
+          </v-form>
+        </v-container>
+      </v-content>
+    </div>
+  </body>
+  <script src="./js/admin.js"></script>
+</html>

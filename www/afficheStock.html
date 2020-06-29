@@ -25,16 +25,17 @@
 
       <v-content>
         <v-container>
+          
           <template>
             <v-expansion-panels>
               <v-expansion-panel v-for="(stock,i) in stocks" :key="i">
                 <v-expansion-panel-header>
                   <v-row>
                     <v-col cols="12" md="12">
-                      {{stock.NamePha}}
+                      {{stock.NomMed}}
                     </v-col>
                     <v-col cols="12" md="12">
-                      date : {{stock.date}}
+                      stock : {{stock.Stock}}
                     </v-col>
                   </v-row>
                 </v-expansion-panel-header>

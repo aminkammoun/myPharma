@@ -1,0 +1,140 @@
+<html>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link href="../css/vuetify.min.css" rel="stylesheet" />
+    <link href="./css/style.css" rel="stylesheet" />
+
+    <style>
+      #map {
+        height: 800px;
+        width: 100%;
+      }
+    </style>
+    <script src="../config/js/vuefire.js"></script>
+    <script src="../config/js/firebase.js"></script>
+    <script src="../config/js/axios.min.js"></script>
+    <script src="../config/js/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  </head>
+  <body>
+    <div id="app" class="draw">
+      <template>
+        <v-card flat>
+          <v-toolbar
+            style="background-color: #1b5e20; border-radius: 0px;"
+            dark
+            flat
+          >
+            <v-toolbar-title>Your Dashboard</v-toolbar-title>
+
+            <v-spacer></v-spacer>
+
+            <v-btn icon>
+              <v-icon>mdi-magnify</v-icon>
+            </v-btn>
+
+            <v-btn icon>
+              <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
+
+            <template v-slot:extension>
+              <v-tabs align-with-title>
+                <v-tabs-slider color="yellow"></v-tabs-slider>
+
+                <v-tab>
+                  <a href="./user.html">utilisateurs</a>
+                </v-tab>
+                <v-tab>
+                  <a href="./tousPh.html">tous les pharmacies</a>
+                </v-tab>
+                <v-tab>
+                  <a href="./addPharmacie.html">AJOUTER pharmacie</a>
+                </v-tab>
+                <v-tab>
+                  <a href="./addStock.html">AJOUTER stocke</a>
+                </v-tab>
+              </v-tabs>
+            </template>
+          </v-toolbar>
+        </v-card>
+      </template>
+      <v-main>
+        <v-container>
+          <v-row>
+            <v-col cols="12" md="6">
+              <template>
+                <v-card class="mx-auto" color="#26c6da" dark max-width="400">
+                  <v-card-title>
+                    <v-icon large left>
+                      mdi-pharmacy
+                    </v-icon>
+                    <span
+                      style="
+                        font-family: sans-serif;
+                        font-weight: bold;
+                        font-size: 27px;
+                      "
+                      class="title font-weight-light"
+                      >nombre des pharmacies</span
+                    >
+                  </v-card-title>
+
+                  <v-card-text
+                    style="
+                      font-size: 42px;
+                      text-align: center;
+                      margin-top: 20px;
+                    "
+                    class="headline font-weight-bold"
+                  >
+                    {{lengthPh}}
+                  </v-card-text>
+                </v-card>
+              </template>
+            </v-col>
+            <v-col col="12" md="6">
+              <template>
+                <v-card class="mx-auto" color="#26c6da" dark max-width="400">
+                  <v-card-title>
+                    <v-icon large left>
+                      mdi-account
+                    </v-icon>
+                    <span
+                      style="
+                        font-family: sans-serif;
+                        font-weight: bold;
+                        font-size: 27px;
+                      "
+                      class="title font-weight-light"
+                      >utilisateur auth</span
+                    >
+                  </v-card-title>
+
+                  <v-card-text
+                    style="
+                      font-size: 42px;
+                      text-align: center;
+                      margin-top: 20px;
+                    "
+                    class="headline font-weight-bold"
+                  >
+                    {{lengthUser}}
+                  </v-card-text>
+                </v-card>
+              </template>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-main>
+    </div>
+  </body>
+  <script src="./js/dashboard.js"></script>
+</html>

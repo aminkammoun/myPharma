@@ -45,83 +45,87 @@
             </div>
             <ul class="nav" id="nav">
               <li><a href="../../index.html">map</a></li>
-              <li><a href="../../phDeJour.html">Pharmacie jour</a></li>
-              <li><a href="../../phDeNuit.html">Pharmacie nuit</a></li>
-              <li><a href="../../phDeGarde.html">Pharmacie Garde</a></li>
+              <li>
+                <a href="../../phDeJour.html">Pharmacie jour</a>
+              </li>
+              <li>
+                <a href="../../phDeNuit.html">Pharmacie nuit</a>
+              </li>
+              <li>
+                <a href="../../phDeGarde.html">Pharmacie garde</a>
+              </li>
               <li><a href="../../contact.html">Contact</a></li>
+              <v-icon v-if="auth" @click="logout">mdi-logout</v-icon>
+              <li v-if="!auth"><a href="../user/Login.html">login</a></li>
             </ul>
           </div>
           <div class="menu-bg" id="menu-bg"></div>
 
           <v-spacer></v-spacer>
 
-          <img src="../../img/pharma.png" class="image-title" />
+          <img  src="../../img/pharma.png" class="image-title" />
 
           <v-spacer></v-spacer>
+          <v-btn v-if="auth" dark icon @click="attrs = !attrs">
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
         </v-app-bar>
+
         <v-content>
-          <v-icon class="back-btn" @click="goBack">mdi-arrow-left</v-icon>
-
           <v-container>
-            <v-btn color="primary" @click="goToDec">
-              add declaration</v-btn
-            >
-            <v-layout
-              row
-              wrap
-              v-for="declaratin in allDeclations"
-              :key="declaratin.id"
-              class="mb-2"
-            >
-              <v-container class="fade-in">
-                <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
-                  <v-card flat>
-                    <v-container fluid>
-                      <v-layout row>
-                        <v-flex xs5 sm4 md3>
-                          <img
-                            class="image-size"
-                            :src="declaratin.imageUrl"
-                            height="130px"
-                          />
-                        </v-flex>
-                        <v-flex xs5 sm6 md7>
-                          <v-card-actions>
-                            <h5 class="mb-0">{{ declaratin.title }}</h5>
-                          </v-card-actions>
-                          <v-card-actions>
-                            <div class="added">
-                              added by {{ declaratin.username }}
-                              {{declaratin.userlastname}}
-                            </div>
-                          </v-card-actions>
-                        </v-flex>
-                        <v-flex xs2 sm2 md2 ml-0>
-                          <v-icon>mdi-dots-vertical</v-icon>
-                        </v-flex>
+            <v-icon class="back-btn" @click="goBack">mdi-arrow-left</v-icon>
 
-                        <template>
-                          <v-expansion-panels flat>
-                            <v-expansion-panel>
-                              <v-expansion-panel-header
-                                >details</v-expansion-panel-header
+            <v-btn color="primary" @click="goToDec"> ajouter déclaration</v-btn>
+            <v-row>
+              <v-col
+                v-for="declaratin in allDeclations"
+                :key="declaratin.id"
+                cols="12"
+                sm="4"
+              >
+                <v-card flat style="border-radius: 0px;">
+                  <v-container fluid>
+                    <v-layout row>
+                      <v-flex xs4 sm3 md2>
+                        <img
+                          class="image-size"
+                          :src="declaratin.imageUrl"
+                          height="130px"
+                        />
+                      </v-flex>
+                      <v-flex xs8 sm9 md10 style="margin-left: 151px;">
+                        <v-card-actions class="card">
+                          <h5 class="mb-0">{{ declaratin.title }}</h5>
+                        </v-card-actions>
+                        <v-card-actions>
+                          <div class="added">
+                            added by {{ declaratin.username }}
+                            {{declaratin.userlastname}}
+                          </div>
+                        </v-card-actions>
+                      </v-flex>
+
+                      <template>
+                        <v-expansion-panels flat>
+                          <v-expansion-panel>
+                            <v-expansion-panel-header
+                              style="margin-top: 3px; margin-bottom: -15px;"
+                              >lire description</v-expansion-panel-header
+                            >
+                            <v-expansion-panel-content>
+                              {{ declaratin.description }} <br />
+                              <v-btn color="success" class="cntBtn"
+                                >contacter</v-btn
                               >
-                              <v-expansion-panel-content>
-                                {{ declaratin.description }} <br />
-                                <v-btn color="success" class="cntBtn"
-                                  >contacter</v-btn
-                                >
-                              </v-expansion-panel-content>
-                            </v-expansion-panel>
-                          </v-expansion-panels>
-                        </template>
-                      </v-layout>
-                    </v-container>
-                  </v-card>
-                </v-flex>
-              </v-container>
-            </v-layout>
-
+                            </v-expansion-panel-content>
+                          </v-expansion-panel>
+                        </v-expansion-panels>
+                      </template>
+                    </v-layout>
+                  </v-container>
+                </v-card>
+              </v-col>
+            </v-row>
             <v-btn
               v-scroll="onScroll"
               v-show="fab"
@@ -137,16 +141,34 @@
             >
               <v-icon>mdi-arrow-up</v-icon>
             </v-btn>
-          </v-container>
+            <v-row justify="center">
+              <v-dialog v-model="dialog" persistent max-width="290">
+                <v-card color="primary">
+                  <v-card-title>connecter vous svp</v-card-title>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="green darken-1" text
+                      ><a href="../user/Login.html">login</a></v-btn
+                    >
 
-          <v-footer padless>
-            <v-col class="text-center" cols="12">
-              All rights reserved © {{ new Date().getFullYear() }} —
-              <strong>KmAmin</strong>
-            </v-col>
-          </v-footer>
+                    <v-btn color="green darken-1" text
+                      ><a href="../user/signUp.html">signUp</a></v-btn
+                    >
+                    <v-btn text @click="dialog=!dialog">annuler</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-row>
+            
+          </v-container>
         </v-content>
       </v-app>
+      <v-footer padless>
+        <v-col class="text-center" cols="12">
+          All rights reserved © {{ new Date().getFullYear() }} —
+          <strong>KmAmin</strong>
+        </v-col>
+      </v-footer>
     </div>
   </body>
 

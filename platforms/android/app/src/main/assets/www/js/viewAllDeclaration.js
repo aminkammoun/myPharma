@@ -16,8 +16,13 @@ new Vue({
     load: true,
     fab: false,
     describ: false,
+    dialog: false,
+    auth: false,
+    attrs: false,
+    logoutAlt: false,
   },
   created() {
+    this.auth = window.localStorage.getItem("auth");
     this.getDeclartion();
     setTimeout(() => {
       this.load = false;
@@ -32,18 +37,21 @@ new Vue({
         var keys = Object.keys(tab);
 
         this.allDeclations = keys.map((key) => {
-          //this.id.push(key);
-
           return tab[key];
         });
         console.log(this.allDeclations);
       });
     },
     goToDec() {
-      if (window.localStorage.getItem("name")) {
+      if (
+        window.localStorage.getItem("name") &&
+        window.localStorage.getItem("auth")
+      ) {
+        this.dialog = false;
         window.location.href = "../views/addDeclaration.html";
       } else {
-        window.location.href = "../user/signUp.html";
+        this.dialog = true;
+        //window.location.href = "../user/signUp.html";
       }
     },
     top() {
@@ -60,6 +68,13 @@ new Vue({
     },
     goBack() {
       window.history.back();
+    },
+    logout() {
+      window.localStorage.removeItem("auth");
+      window.localStorage.removeItem("name");
+      window.localStorage.removeItem("lastname");
+      window.location.href = "../views/viewAllDeclaration.html";
+      s;
     },
   },
 });

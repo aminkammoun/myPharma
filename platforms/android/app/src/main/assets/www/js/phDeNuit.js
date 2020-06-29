@@ -25,10 +25,14 @@ new Vue({
     stocks: [],
     show: false,
     fab: false,
+    auth: false,
+    numJour: 0,
+    numNuit: 0,
+    numGarde: 0,
   },
   created() {
     this.getpha();
-
+    this.auth = window.localStorage.getItem("auth");
     setTimeout(() => {
       this.load = false;
     }, 1300);
@@ -57,7 +61,20 @@ new Vue({
 
           return tab[key];
         });
+        for (i = 0; i < this.times.length; i++) {
+          if (this.times[i].cat == "jour") {
+            this.numJour++;
+            
+          }
+          if (this.times[i].cat == "nuit") {
+            this.numNuit++;
+          }
+          if (this.times[i].cat == "garde") {
+            this.numGarde++;
+          }
+        }
         console.log(this.times);
+        console.log(this.numJour);
       });
     },
     goBack() {
@@ -74,6 +91,12 @@ new Vue({
       if (typeof window === "undefined") return;
       const top = window.pageYOffset || e.target.scrollTop || 0;
       this.fab = top > 20;
+    },
+    logout() {
+      window.localStorage.removeItem("auth");
+      window.localStorage.removeItem("name");
+      window.localStorage.removeItem("lastname");
+      window.location.reload();
     },
   },
 });

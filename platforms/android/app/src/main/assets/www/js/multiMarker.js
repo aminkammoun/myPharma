@@ -5,7 +5,7 @@ var config = {
   projectId: "pharmaposition-a230d",
   storageBucket: "pharmaposition-a230d.appspot.com",
   messagingSenderId: "1014214233603",
-  Id: "1:1014214233603:web:edb23cb53200911017c836"
+  Id: "1:1014214233603:web:edb23cb53200911017c836",
 };
 firebase.initializeApp(config);
 new Vue({
@@ -17,11 +17,11 @@ new Vue({
     drawer: false,
     option: {
       zoom: 13,
-      center: { lat: 35.8060493, lng: 10.6106043 }
+      center: { lat: 35.8060493, lng: 10.6106043 },
     },
     items: [
       { icon: "mdi-contacts", text: "Contacts" },
-      { icon: "mdi-content-copy", text: "Pharma" }
+      { icon: "mdi-content-copy", text: "Pharma" },
     ],
     places: [],
     src: "",
@@ -34,18 +34,29 @@ new Vue({
     text: "",
     snackbar: false,
     ouvert: false,
-    midNight: true
+    midNight: true,
+    auth: false,
+    ic: "",
+    icc: "",
+    ic2:""
   },
   created() {
     this.getPlaces();
+    this.auth = window.localStorage.getItem("auth");
     setTimeout(() => {
       this.load = false;
     }, 2000);
   },
   methods: {
+    logout() {
+      window.localStorage.removeItem("auth");
+      window.localStorage.removeItem("name");
+      window.localStorage.removeItem("lastname");
+      window.location.href = "../views/viewAllDeclaration.html";
+    },
     infoWindow() {
       var inf = new google.maps.InfoWindow();
-      google.maps.event.addListener(marker, "click", data => {
+      google.maps.event.addListener(marker, "click", (data) => {
         console.log(data);
         inf.setContent("position:<br>" + data.latLng.toUrlValue(5));
         inf.open(this.map, marker);
@@ -96,6 +107,7 @@ new Vue({
               this.places[i].name,
               "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
             );
+            this.ic = "green";
           } else if (
             seconds < seconds3 &&
             seconds < seconds4 &&
@@ -108,7 +120,8 @@ new Vue({
               this.places[i].name,
               "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
             );
-          }else if (
+            this.ic = "green";
+          } else if (
             seconds > seconds3 &&
             seconds > seconds4 &&
             this.places[i].cat == "nuit"
@@ -120,6 +133,7 @@ new Vue({
               this.places[i].name,
               "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
             );
+            this.ic = "green";
           } else {
             this.markerFun(
               this.places[i].x,
@@ -128,6 +142,7 @@ new Vue({
               this.places[i].name,
               "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
             );
+            this.icc = "red";
           }
         } else {
           this.markerFun(
@@ -137,12 +152,13 @@ new Vue({
             this.places[i].name,
             "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
           );
+          this.ic2 = "yellow";
         }
 
         this.infoWindow();
       }
 
-      navigator.geolocation.getCurrentPosition(position => {
+      navigator.geolocation.getCurrentPosition((position) => {
         this.src = position.coords.latitude;
         this.des = position.coords.longitude;
         this.markerFun(
@@ -155,22 +171,19 @@ new Vue({
       });
     },
     getPlaces() {
-      var db = firebase
-        .database()
-        .ref()
-        .child("coord/");
+      var db = firebase.database().ref().child("coord/");
       db.on(
         "value",
-        data => {
+        (data) => {
           var places = data.val();
           var keys = Object.keys(places);
-          this.places = keys.map(key => {
+          this.places = keys.map((key) => {
             return places[key];
           });
 
           this.initMap();
         },
-        data => {
+        (data) => {
           console.log(data);
         }
       );
@@ -234,9 +247,9 @@ new Vue({
         position: new google.maps.LatLng(a, b),
         map: c,
         title: "pharmacie " + d,
-        icon: str
+        icon: str,
       });
-    }
+    },
     // calculRoute() {
     //   var directionDisplay = new google.maps.DirectionsRenderer();
     //   var directionService = new google.maps.DirectionsService();
@@ -257,5 +270,5 @@ new Vue({
     //     console.log(result, request);
     //   });
     // }
-  }
+  },
 });

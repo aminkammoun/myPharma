@@ -10,7 +10,7 @@
       rel="stylesheet"
     />
     <link href="../css/vuetify.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="./css/style.css" />
+
     <style>
       #map {
         height: 800px;
@@ -25,15 +25,64 @@
   </head>
   <body>
     <div id="app" class="draw">
-      <div>
-        <div class="sidenav">
-          <a href="#" target="affiche">Add pharmacie</a>
-          <a href="addStock.html">mise à jour stock</a>
-        </div>
-        <div class="main" name="affiche">
-          ...
-        </div>
-      </div>
+      <v-main>
+        <v-container class="fill-height" fluid>
+          <v-row justify="center">
+            <v-col
+              style="position: absolute; left: 500px; top: 210px;"
+              cols="12"
+              sm="8"
+              md="4"
+            >
+              <v-card class="elevation-12">
+                <v-toolbar
+                  style="height: 64px; background-color: springgreen;"
+                  dark
+                  flat
+                >
+                  <v-toolbar-title
+                    >authentifier comme administrateur</v-toolbar-title
+                  >
+                  <v-spacer></v-spacer>
+                </v-toolbar>
+                <v-card-text>
+                  <v-form>
+                    <v-text-field
+                      label="Login"
+                      name="login"
+                      v-model="email"
+                      prepend-icon="mdi-account"
+                      type="text"
+                    ></v-text-field>
+
+                    <v-text-field
+                      id="password"
+                      label="Password"
+                      name="password"
+                      v-model="password"
+                      prepend-icon="mdi-lock"
+                      type="password"
+                    ></v-text-field>
+                  </v-form>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    style="
+                      background-color: turquoise;
+                      font-size: large;
+                      font-family: sans-serif;
+                      text-transform: none;
+                    "
+                    @click="signIn"
+                    >Login</v-btn
+                  >
+                </v-card-actions>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-main>
     </div>
   </body>
   <script src="./js/admin.js"></script>

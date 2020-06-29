@@ -1,0 +1,159 @@
+<html>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link href="../../css/vuetify.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/index.css" />
+    <link rel="stylesheet" href="../../css/test.css" />
+    <style>
+      #map {
+        height: 800px;
+        width: 100%;
+      }
+    </style>
+    <script src="../../config/js/vuefire.js"></script>
+    <script src="../../config/js/firebase.js"></script>
+    <script src="../../config/js/axios.min.js"></script>
+    <script src="../../config/js/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  </head>
+  <body>
+    <div id="app" class="draw">
+      <div class="cont" v-if="load">
+        <div class="load-wrapp">
+          <div class="load-3">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+          </div>
+        </div>
+      </div>
+      <v-app style="background-color: #00e676;">
+        <v-content>
+          <v-container>
+            <v-layout row>
+              <v-flex xs12 sm6 offset-sm3>
+                <v-card style="border-radius: 2%; top: 20px;">
+                  <v-card-text>
+                    <v-container>
+                      <h1 style="margin-bottom: 46px;">SignUp</h1>
+                      <v-avatar color="#00e676" style="margin-top: -20px;">
+                        <v-icon dark>mdi-account-circle</v-icon>
+                      </v-avatar>
+                      <form @submit.prevent="onSignup">
+                        <v-row>
+                          <v-col cols="12" md="6">
+                            <v-text-field
+                              class="spaceBotom"
+                              name="name"
+                              label="name"
+                              id="name"
+                              v-model="name"
+                              type="name"
+                              outlined
+                              required
+                            >
+                            </v-text-field>
+                          </v-col>
+                          <v-col cols="12" md="6">
+                            <v-text-field
+                              class="spaceBotom"
+                              name="lastname"
+                              label="lastname"
+                              id="lastname"
+                              v-model="lastname"
+                              type="lastname"
+                              outlined
+                              required
+                            ></v-text-field> </v-col
+                        ></v-row>
+                        <v-row>
+                          <v-col cols="12" md="12">
+                            <div class="erorAlert" v-if="eroremail">
+                              email existe déja
+                            </div>
+                            <v-text-field
+                              class="spaceBotom"
+                              name="email"
+                              label="Mail"
+                              id="email"
+                              v-model="email"
+                              type="email"
+                              outlined
+                              required
+                            ></v-text-field>
+                          </v-col>
+                        </v-row>
+                        <v-row>
+                          <v-col cols="12" md="6">
+                            <div class="erorAlert" v-if="erorpass" type="error">
+                              mot de passe minimum 6
+                            </div>
+
+                            <v-text-field
+                              class="spaceBotom"
+                              name="password"
+                              label="Password"
+                              id="password"
+                              v-model="password"
+                              type="password"
+                              outlined
+                              required
+                            ></v-text-field>
+                          </v-col>
+                          <v-col cols="12" md="6">
+                            <v-text-field
+                              name="confirmPassword"
+                              label="Confirm Password"
+                              id="confirmPassword"
+                              v-model="confirmPassword"
+                              type="password"
+                              :rules="[comparePasswords]"
+                              outlined
+                              required
+                            ></v-text-field>
+                          </v-col>
+                        </v-row>
+                        <v-layout row>
+                          <v-flex xs12>
+                            <v-btn type="submit" color="primary">Sign up</v-btn>
+                            <v-btn color="#2bb673">
+                              <a href="./Login.html"> login</a></v-btn
+                            >
+                          </v-flex>
+                        </v-layout>
+                      </form>
+                    </v-container>
+                  </v-card-text>
+                </v-card>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-content>
+      </v-app>
+
+      <v-footer padless>
+        <v-col class="text-center" cols="12">
+          All rights reserved © {{ new Date().getFullYear() }} —
+          <strong>KmAmin</strong>
+        </v-col>
+      </v-footer>
+    </div>
+  </body>
+
+  <script src="./js/signUp.js"></script>
+  <script type="text/javascript">
+    function onClickMenu() {
+      document.getElementById("menu").classList.toggle("change");
+      document.getElementById("nav").classList.toggle("change");
+
+      document.getElementById("menu-bg").classList.toggle("change-bg");
+    }
+  </script>
+</html>

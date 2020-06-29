@@ -17,6 +17,8 @@ new Vue({
     location: "",
     imageUrl: "",
     description: "",
+    auth: false,
+    logoutAlt:false
   },
   computed: {
     formIsValid() {
@@ -29,16 +31,18 @@ new Vue({
     },
   },
   created() {
+    this.auth = window.localStorage.getItem("auth");
     setTimeout(() => {
       this.load = false;
     }, 500);
   },
 
   methods: {
-    onCreateMeetup() {
+    onCreateDec() {
       if (!this.formIsValid) {
         return;
       }
+      var declarationRef = firebase.database().ref("/Declaration");
       const declarationData = {
         username: window.localStorage.getItem("name"),
         userlastname: window.localStorage.getItem("lastname"),
@@ -46,16 +50,20 @@ new Vue({
         location: this.location,
         imageUrl: this.imageUrl,
         description: this.description,
-        date: new Date(),
       };
-      var declarationRef = firebase.database().ref("Declaration");
       declarationRef.push(declarationData);
+      alert("added");
       window.location.href = "../views/viewAllDeclaration.html";
-      // this.$store.dispatch("createMeetup", meetupData);
-      // this.$router.push("/meetups");
     },
     goBack() {
       window.history.back();
+    },
+    logout() {
+
+      window.localStorage.removeItem("auth");
+      window.localStorage.removeItem("name");
+      window.localStorage.removeItem("lastname");
+      window.location.href = "../views/viewAllDeclaration.html";
     },
   },
 });

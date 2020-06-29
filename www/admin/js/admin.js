@@ -12,6 +12,16 @@ new Vue({
   el: "#app",
   vuetify: new Vuetify(),
   data: {
+    itemss: [],
+    telRules: [(v) => (v && v.length == 10) || "Name must be 8 characters"],
+    nomPH: "",
+    categorie: "",
+    adress: "",
+    telephone: "",
+    longittude: "",
+    attitide: "",
+    ouvre: "",
+    ferme: "",
     image: "",
     items: [],
     select: "",
@@ -21,8 +31,16 @@ new Vue({
     description: "",
     snackbar: false,
     text: "please fill all the field",
+    time: null,
+    time1: null,
+    menu1: false,
+    menu2: false,
+    modal2: false,
+    email: "",
+    password: "",
+    authentication: false,
+    attrs: false,
   },
-
   created() {
     this.getpha();
   },
@@ -30,12 +48,7 @@ new Vue({
     stockForm(e) {
       e.preventDefault();
 
-      this.saveStock(
-        this.select,
-        this.NomMed,
-        this.stock,
-        this.description
-      );
+      this.saveStock(this.select, this.NomMed, this.stock, this.description);
     },
 
     saveStock(namePha, NomMed, stock, Description) {
@@ -69,6 +82,71 @@ new Vue({
       });
     },
 
+    ajouterPH(e) {
+      e.preventDefault();
+      this.saveForm(
+        this.nomPH,
+        this.categorie,
+        this.adress,
+        this.telephone,
+        this.longittude,
+        this.attitide,
+        this.ouvre,
+        this.ferme
+      );
+    },
+    saveForm(
+      name,
+      categorie,
+      address,
+      telephone,
+      longittude,
+      attitude,
+      ouvre,
+      ferme
+    ) {
+      if (
+        name != "" &&
+        categorie != "" &&
+        address != "" &&
+        longittude != "" &&
+        attitude != "" &&
+        ferme != "" &&
+        ouvre != ""
+      ) {
+        if (this.isFloat(longittude) && this.isFloat(attitude)) {
+          var phRef = firebase.database().ref("/coord");
+          var data = {
+            name: name,
+            adress: address,
+            cat: categorie,
+            ouvre: ouvre,
+            ferme: ferme,
+            x: longittude,
+            y: attitude,
+            tel: telephone,
+            itemss: [],
+            idVal: [],
+            dialog: false,
+            num: "",
+          };
+          console.log("okay");
+          phRef.push(data);
+          document.getElementById("nomPH").value = "";
+          document.getElementById("categorie").value = "";
+          document.getElementById("adress").value = "";
+          document.getElementById("telephone").value = "";
+          document.getElementById("longittude").value = "";
+          document.getElementById("attitude").value = "";
+          document.getElementById("ouvre").value = "";
+          document.getElementById("ferme").value = "";
+        } else {
+          console.log("logittude et attitude ");
+        }
+      } else {
+        this.snackbar = true;
+      }
+    },
     getpha() {
       var db = firebase.database().ref().child("coord/");
       db.on("value", (data) => {
@@ -78,6 +156,25 @@ new Vue({
           return tab[key].name;
         });
       });
+    },
+
+    isFloat(n) {
+      return !isNaN(parseFloat(n));
+    },
+    signIn() {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(() => {
+          this.authentication = true;
+          window.location.href = "../../../www/admin/dashboard.html";
+        })
+        .catch(function (error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // ...
+        });
     },
   },
 });

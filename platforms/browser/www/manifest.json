@@ -1,0 +1,12 @@
+{
+  "background_color": "#FFF",
+  "display": "standalone",
+  "name": "myPharmaLocation",
+  "short_name": "myPharmaLocation",
+  "version": "com.pharmacie.io",
+  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "author": "Amine Kammoun",
+  "icons": [],
+  "start_url": "index.html",
+  "theme_color": "#2bb673"
+}

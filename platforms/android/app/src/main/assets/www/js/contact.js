@@ -27,6 +27,7 @@ new Vue({
     ouvert: false,
   },
   created() {
+    this.auth = window.localStorage.getItem("auth");
     setTimeout(() => {
       this.load = false;
     }, 500);
@@ -41,7 +42,7 @@ new Vue({
       this.saveForm(name, lastname, Email, Decription);
     },
     saveForm(name, lastname, Email, Decription) {
-      if ((name != "" && lastname != "" && Email != "", Decription != "")) {
+      if ((name != "" && lastname != "" && Email != ""&& Decription != "")) {
         var contactRef = firebase.database().ref("contactForm");
         var data = {
           Name: name,

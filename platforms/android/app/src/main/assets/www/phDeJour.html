@@ -46,11 +46,20 @@
             </div>
             <ul class="nav" id="nav">
               <li><a href="index.html">map</a></li>
-              <li><a href="phDeJour.html">Pharmacie jour</a></li>
-              <li><a href="phDeNuit.html">Pharmacie nuit</a></li>
-              <li><a href="phDeGarde.html">Pharmacie Garde</a></li>
+
+              <li>
+                <v-badge color="black" :content="numNuit">
+                  <a href="phDeNuit.html">Pharmacie nuit</a>
+                </v-badge>
+              </li>
+              <li>
+                <v-badge color="yellow" :content="numGarde">
+                  <a href="phDeGarde.html">Pharmacie garde</a>
+                </v-badge>
+              </li>
               <li><a href="contact.html">Contact</a></li>
               <li><a href="./forum/views/viewAllDeclaration.html">Forum</a></li>
+              <v-icon v-if="auth" @click="logout">mdi-logout</v-icon>
             </ul>
           </div>
           <div class="menu-bg" id="menu-bg"></div>
@@ -60,48 +69,58 @@
           <img src="./img/pharma.png" class="image-title" />
 
           <v-spacer></v-spacer>
+          <v-btn v-if="auth" dark icon @click="attrs = !attrs">
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
         </v-app-bar>
         <v-content>
           <v-icon class="back-btn" @click="goBack">mdi-arrow-left</v-icon>
           <h3>Liste des pharmacies de jour</h3>
-          <div class="fade-in" v-for="(time, index) in times">
-            <v-container grid-list-xs v-if="time.cat == 'jour'">
-              <v-card flat>
-                <v-list-item-content py-2>
-                  <v-row>
-                    <v-col cols="12" md="3">
-                      <v-img height="120px" :src="time.imageURL"> </v-img>
-                    </v-col>
-                    <v-col cols="12" md="9">
-                      <v-card-actions>
-                        <h3>pharmacie de: {{time.name}}</h3>
-                      </v-card-actions>
-                      <v-card-actions>
-                        <v-icon>mdi-home</v-icon>Address : {{time.adress}}
-                      </v-card-actions>
-                      <v-card-actions>
-                        <v-icon>mdi-clock</v-icon>Temps de travail :
-                        {{time.ouvre}} h - {{time.ferme}} h
-                      </v-card-actions>
-                      <v-card-actions>
-                        <v-icon>mdi-phone</v-icon>
-                        n° telephone : {{time.tel}}
-                      </v-card-actions>
-                      <v-card-actions>
-                        <v-btn
-                          class="button"
-                          rounded
-                          @click="getStock(id[index])"
-                        >
-                          <a href="afficheStock.html">show stock</a>
-                        </v-btn>
-                      </v-card-actions>
-                    </v-col>
-                  </v-row>
-                </v-list-item-content>
-              </v-card>
-            </v-container>
-          </div>
+          <v-container grid-list-xs>
+            <v-row>
+              <v-col
+                cols="12"
+                md="6"
+                v-for="(time, index) in times"
+                v-if="time.cat == 'jour'"
+              >
+                <v-card flat>
+                  <v-list-item-content py-2>
+                    <v-row>
+                      <v-col cols="12" md="3">
+                        <v-img height="120px" :src="time.imageURL"> </v-img>
+                      </v-col>
+                      <v-col cols="12" md="9">
+                        <v-card-actions>
+                          <h3>pharmacie de: {{time.name}}</h3>
+                        </v-card-actions>
+                        <v-card-actions>
+                          <v-icon>mdi-home</v-icon>Address : {{time.adress}}
+                        </v-card-actions>
+                        <v-card-actions>
+                          <v-icon>mdi-clock</v-icon>Temps de travail :
+                          {{time.ouvre}} h - {{time.ferme}} h
+                        </v-card-actions>
+                        <v-card-actions>
+                          <v-icon>mdi-phone</v-icon>
+                          n° telephone : {{time.tel}}
+                        </v-card-actions>
+                        <v-card-actions>
+                          <v-btn
+                            class="button"
+                            rounded
+                            @click="getStock(id[index])"
+                          >
+                            <a href="afficheStock.html">voir stocke</a>
+                          </v-btn>
+                        </v-card-actions>
+                      </v-col>
+                    </v-row>
+                  </v-list-item-content>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
           <v-btn
             v-scroll="onScroll"
             v-show="fab"

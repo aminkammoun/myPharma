@@ -116,8 +116,13 @@ a {
   left: 45%;
 }
 .image-size {
-  padding-left: 9px;
-  width: 100%;
+  position: absolute;
+  left: 21px;
+  top: 5px;
+  padding-left: 0px;
+  width: 98px;
+  height: 84px;
+  border-radius: 52%;
 }
 .icn {
   left: 45%;
@@ -136,5 +141,26 @@ a {
 .back-btn {
   position: absolute !important;
   left: 15px;
-  top: 3px;
+  top: 72px;;
+}
+.erorAlert {
+  color: red;
+}
+.v-expansion-panels {
+  border-radius: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style-type: none;
+  padding-top: 30px;
+  width: 100%;
+  z-index: 1;
+}
+.card {
+  align-items: center;
+  display: flex;
+  padding: 0px !important;
+}
+.spaceBotom {
+  margin-bottom: -30px !important;
 }

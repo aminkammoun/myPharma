@@ -12,6 +12,7 @@
     />
     <link href="../css/vuetify.min.css" rel="stylesheet" />
     <link href="./css/style.css" rel="stylesheet" />
+
     <style>
       #map {
         height: 800px;
@@ -26,15 +27,48 @@
   </head>
   <body>
     <div id="app">
-      <div class="sidenav">
-        <a href="#" target="affiche">Add pharmacie</a>
-        <a href="addStock.html">mise à jour stock</a>
-      </div>
+      <template>
+        <v-card flat>
+          <v-toolbar style="background-color: #1b5e20;border-radius: 0px;" dark flat>
+            <v-toolbar-title
+              ><h1 class="title py-4">
+                Ajouter un nouveau medicament
+              </h1></v-toolbar-title
+            >
+
+            <v-spacer></v-spacer>
+
+            <v-btn icon>
+              <v-icon>mdi-magnify</v-icon>
+            </v-btn>
+
+            <v-btn icon>
+              <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
+
+            <template v-slot:extension>
+              <v-tabs align-with-title>
+                <v-tabs-slider color="yellow"></v-tabs-slider>
+
+                <v-tab>
+                  <a href="./user.html">utilisateurs</a>
+                </v-tab>
+                <v-tab>
+                  <a href="./tousPh.html">tous les pharmacies</a>
+                </v-tab>
+                <v-tab>
+                  <a href="./addPharmacie.html">AJOUTER pharmacie</a>
+                </v-tab>
+                <v-tab>
+                  <a href="./addStock.html">AJOUTER stocke</a>
+                </v-tab>
+              </v-tabs>
+            </template>
+          </v-toolbar>
+        </v-card>
+      </template>
       <v-content>
         <v-container data-app>
-          <h1 class="title py-4">
-            Ajouter un nouveau medicament
-          </h1>
           <v-divider></v-divider>
           <v-form>
             <v-row>
@@ -43,7 +77,7 @@
                   id="select"
                   v-model="select"
                   :items="items"
-                  label="Select pharmacy name"
+                  label="Selectionner pharmacie"
                   outlined
                 ></v-select>
               </v-col>
